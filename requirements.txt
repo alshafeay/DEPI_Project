@@ -1,2 +1,7 @@
 faster-whisper
-deep-translator
+transformers
+torch
+sentencepiece
+accelerate
+ollama
+pyyaml
