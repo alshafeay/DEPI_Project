@@ -8,6 +8,7 @@ data/final/
 data/test/
 
 models/
+notebooks/
 
 *.wav
 *.mp3
