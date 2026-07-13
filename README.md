@@ -13,10 +13,10 @@ A distributed, end-to-end AI pipeline that translates and dubs a source video in
   </tr>
   <tr>
     <td align="center">
-      <video src="test.mp4" width="420" controls></video>
+      <video src="https://github.com/user-attachments/assets/81017c63-7937-4dd9-b088-e0c25a425c96" width="420" controls></video>
     </td>
     <td align="center">
-      <video src="final_output_lipsynced.mp4" width="420" controls></video>
+      <video src="https://github.com/user-attachments/assets/48fd8678-183e-4350-b81f-8c444cbe1164" width="420" controls></video>
     </td>
   </tr>
   <tr>
