@@ -1,5 +1,7 @@
-﻿# Ignore all video files — videos are referenced in README.md only
-*.mp4
+# Ignore large screen recordings not needed in the repository
+Screen Record for Run.mp4
+
+# Ignore other common video formats if added later
 *.mov
 *.avi
 *.mkv
