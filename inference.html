@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepDub | AI Video Dubbing Studio</title>
+    <meta name="description" content="DeepDub — an AI-powered video dubbing pipeline running audio separation, transcription, translation, TTS, and lip sync in sequence.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- Animated background canvas -->
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+    <div class="page-shell">
+
+        <!-- ══ HERO ══════════════════════════════════ -->
+        <section class="hero card-surface">
+
+            <!-- Left: branding + copy -->
+            <div class="hero-content">
+
+                <!-- Logo lockup -->
+                <div class="hero-logo-lockup">
+                    <div class="hero-logo-mark" aria-hidden="true">
+                        <!-- Outer ring -->
+                        <svg class="logo-ring" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="32" cy="32" r="30" stroke="url(#ringGrad)" stroke-width="1.5" stroke-dasharray="6 3" class="ring-spin"/>
+                            <defs>
+                                <linearGradient id="ringGrad" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#7c5cfc"/>
+                                    <stop offset="1" stop-color="#5bb8ff"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <!-- Core icon -->
+                        <div class="logo-core">
+                            <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-icon-svg">
+                                <!-- Play triangle -->
+                                <path d="M10 8.5L20.5 14L10 19.5V8.5Z" fill="url(#iconGrad)"/>
+                                <!-- Waveform bars below -->
+                                <rect x="8"  y="22" width="2" height="3" rx="1" fill="url(#iconGrad)" opacity="0.6"/>
+                                <rect x="11" y="21" width="2" height="4" rx="1" fill="url(#iconGrad)" opacity="0.8"/>
+                                <rect x="14" y="20" width="2" height="5" rx="1" fill="url(#iconGrad)"/>
+                                <rect x="17" y="21" width="2" height="4" rx="1" fill="url(#iconGrad)" opacity="0.8"/>
+                                <rect x="20" y="22" width="2" height="3" rx="1" fill="url(#iconGrad)" opacity="0.6"/>
+                                <defs>
+                                    <linearGradient id="iconGrad" x1="8" y1="8" x2="22" y2="25" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#a78bfa"/>
+                                        <stop offset="1" stop-color="#38bdf8"/>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="hero-wordmark">
+                        <span class="wordmark-deep">Deep</span><span class="wordmark-dub">Dub</span>
+                        <span class="wordmark-badge">AI Studio</span>
+                    </div>
+                </div>
+
+                <!-- Tagline -->
+                <h1 class="hero-headline">
+                    Dub any video into
+                    <span class="hero-hl">any language</span>
+                    <br>with AI precision.
+                </h1>
+
+                <p class="hero-copy">Upload a source video — DeepDub runs audio separation, Whisper
+                    transcription, Qwen translation, XTTS voice synthesis, and final latent lip sync,
+                    all in one seamless pipeline.</p>
+
+                <!-- Tech stack badges -->
+                <div class="hero-badges">
+                    <span class="tech-badge"><span class="tech-dot td-blue"></span>Whisper ASR</span>
+                    <span class="tech-badge"><span class="tech-dot td-purple"></span>Qwen LLM</span>
+                    <span class="tech-badge"><span class="tech-dot td-teal"></span>XTTS v2</span>
+                    <span class="tech-badge"><span class="tech-dot td-pink"></span>LatentSync</span>
+                </div>
+            </div>
+
+            <!-- Right: animated waveform visual -->
+            <div class="hero-visual" aria-hidden="true">
+                <div class="hero-visual-inner">
+                    <!-- Glow ring -->
+                    <div class="hv-glow-ring"></div>
+
+                    <!-- Animated waveform bars -->
+                    <div class="hv-waveform">
+                        <div class="hv-bar" style="--delay:0.0s;--h:38%"></div>
+                        <div class="hv-bar" style="--delay:0.08s;--h:62%"></div>
+                        <div class="hv-bar" style="--delay:0.16s;--h:80%"></div>
+                        <div class="hv-bar" style="--delay:0.24s;--h:95%"></div>
+                        <div class="hv-bar" style="--delay:0.32s;--h:70%"></div>
+                        <div class="hv-bar" style="--delay:0.40s;--h:100%"></div>
+                        <div class="hv-bar" style="--delay:0.48s;--h:85%"></div>
+                        <div class="hv-bar" style="--delay:0.56s;--h:60%"></div>
+                        <div class="hv-bar" style="--delay:0.64s;--h:45%"></div>
+                        <div class="hv-bar" style="--delay:0.72s;--h:75%"></div>
+                        <div class="hv-bar" style="--delay:0.80s;--h:55%"></div>
+                        <div class="hv-bar" style="--delay:0.88s;--h:30%"></div>
+                        <div class="hv-bar" style="--delay:0.96s;--h:50%"></div>
+                        <div class="hv-bar" style="--delay:1.04s;--h:78%"></div>
+                        <div class="hv-bar" style="--delay:1.12s;--h:90%"></div>
+                        <div class="hv-bar" style="--delay:1.20s;--h:65%"></div>
+                        <div class="hv-bar" style="--delay:1.28s;--h:42%"></div>
+                        <div class="hv-bar" style="--delay:1.36s;--h:72%"></div>
+                    </div>
+
+                    <!-- Floating stat chips -->
+                    <div class="hv-chip hv-chip-1">
+                        <span class="hv-chip-icon">⚡</span>
+                        <span>4-Stage Pipeline</span>
+                    </div>
+                    <div class="hv-chip hv-chip-2">
+                        <span class="hv-chip-icon">🎙️</span>
+                        <span>Voice Cloning</span>
+                    </div>
+                    <div class="hv-chip hv-chip-3">
+                        <span class="hv-chip-icon">🎬</span>
+                        <span>Lip Sync</span>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ══ WORKFLOW ═══════════════════════════════ -->
+        <section class="workflow card-surface">
+            <div class="section-heading workflow-heading">
+                <div>
+                    <p class="section-kicker">Workflow</p>
+                    <h2>One input, one sequence, four outputs</h2>
+                </div>
+                <span class="pill pill-soft">Step-by-step</span>
+            </div>
+
+            <div class="workflow-layout">
+                <!-- Upload card -->
+                <div class="upload-card">
+                    <div class="section-heading compact">
+                        <div>
+                            <p class="section-kicker">Input</p>
+                            <h3>Source video</h3>
+                        </div>
+                    </div>
+
+                    <label for="mainVideo" class="file-dropzone">
+                        <span class="file-title">Choose a video to process</span>
+                        <span class="file-subtitle">MP4, MOV, or other browser-supported video formats</span>
+                        <input type="file" id="mainVideo" accept="video/*">
+                    </label>
+
+                    <div class="upload-actions">
+                        <button id="startBtn" type="button">Initialize DeepDub</button>
+                        <p class="hint">The pipeline runs through all four stages in sequence.</p>
+                    </div>
+                </div>
+
+                <!-- Pipeline visualization -->
+                <div class="visualization-card">
+                    <div class="section-heading compact">
+                        <div>
+                            <p class="section-kicker">Visualization</p>
+                            <h3>Pipeline flow</h3>
+                        </div>
+                    </div>
+
+                    <div class="pipeline-map" id="pipelineMap" aria-label="Pipeline visualization">
+                        <div class="pipeline-node" data-stage="1">
+                            <span class="node-number">01</span>
+                            <strong>Audio split</strong>
+                            <p>Silent video + clean vocals</p>
+                        </div>
+                        <div class="pipeline-node" data-stage="2">
+                            <span class="node-number">02</span>
+                            <strong>Translation</strong>
+                            <p>Whisper transcription + Qwen translation</p>
+                        </div>
+                        <div class="pipeline-node" data-stage="3">
+                            <span class="node-number">03</span>
+                            <strong>Voice synthesis</strong>
+                            <p>XTTS-generated target audio</p>
+                        </div>
+                        <div class="pipeline-node" data-stage="4">
+                            <span class="node-number">04</span>
+                            <strong>Latent sync</strong>
+                            <p>Final rendered lip-synced video</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══ RESULTS ════════════════════════════════ -->
+        <section class="results card-surface">
+            <div class="section-heading workflow-heading">
+                <div>
+                    <p class="section-kicker">Results</p>
+                    <h2>Outputs appear here as each stage finishes</h2>
+                </div>
+                <span class="pill">Live status</span>
+            </div>
+
+            <div class="grid">
+
+                <!-- Stage 1 -->
+                <div class="card" id="card1">
+                    <div class="section-heading compact">
+                        <div>
+                            <p class="section-kicker">Stage 1</p>
+                            <h3>Audio Processing</h3>
+                        </div>
+                        <span class="status" id="status1">Awaiting Input</span>
+                    </div>
+
+                    <!-- Waveform loader (shown while processing) -->
+                    <div class="waveform-loader" id="loader1" aria-label="Processing…">
+                        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                    </div>
+
+                    <span class="label">Silent Video Output</span>
+                    <video id="outSilentVideo" controls></video>
+
+                    <span class="label">Clean Vocals Output</span>
+                    <audio id="outCleanAudio" controls></audio>
+                </div>
+
+                <!-- Stage 2 -->
+                <div class="card" id="card2">
+                    <div class="section-heading compact">
+                        <div>
+                            <p class="section-kicker">Stage 2</p>
+                            <h3>LLM Translation</h3>
+                        </div>
+                        <span class="status" id="status2">Awaiting Input</span>
+                    </div>
+
+                    <div class="waveform-loader" id="loader2" aria-label="Processing…">
+                        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                    </div>
+
+                    <span class="label">Transcription (Whisper)</span>
+                    <div class="text-output english" id="txtEnglish"></div>
+
+                    <span class="label">Translation (Qwen)</span>
+                    <div class="text-output" id="txtArabic"></div>
+                </div>
+
+                <!-- Stage 3 -->
+                <div class="card" id="card3">
+                    <div class="section-heading compact">
+                        <div>
+                            <p class="section-kicker">Stage 3</p>
+                            <h3>TTS &amp; Sync</h3>
+                        </div>
+                        <span class="status" id="status3">Awaiting Input</span>
+                    </div>
+
+                    <div class="waveform-loader" id="loader3" aria-label="Processing…">
+                        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                    </div>
+
+                    <span class="label">Synthesized Audio</span>
+                    <audio id="outArabicAudio" controls></audio>
+                </div>
+
+                <!-- Stage 4 -->
+                <div class="card" id="card4">
+                    <div class="section-heading compact">
+                        <div>
+                            <p class="section-kicker">Stage 4</p>
+                            <h3>Latent Sync</h3>
+                        </div>
+                        <span class="status" id="status4">Awaiting Input</span>
+                    </div>
+
+                    <div class="waveform-loader" id="loader4" aria-label="Processing…">
+                        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                    </div>
+
+                    <span class="label">Final Render</span>
+                    <video id="outFinalVideo" controls></video>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+    <!-- Animated background particles -->
+    <script>
+    (function () {
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resize() {
+            canvas.width  = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        // Particle config
+        const PARTICLE_COUNT = 55;
+        const particles = [];
+
+        const COLORS = [
+            'rgba(91,184,255,',
+            'rgba(124,92,252,',
+            'rgba(34,217,140,',
+            'rgba(168,85,247,',
+        ];
+
+        function randomBetween(a, b) { return a + Math.random() * (b - a); }
+
+        class Particle {
+            constructor() { this.reset(true); }
+            reset(initial) {
+                this.x = randomBetween(0, canvas.width);
+                this.y = initial ? randomBetween(0, canvas.height) : canvas.height + 40;
+                this.r = randomBetween(1.2, 3.8);
+                this.speed = randomBetween(0.18, 0.55);
+                this.drift = randomBetween(-0.18, 0.18);
+                this.alpha = randomBetween(0.08, 0.35);
+                this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
+                this.pulse = randomBetween(0, Math.PI * 2);
+                this.pulseSpeed = randomBetween(0.005, 0.02);
+            }
+            update() {
+                this.y -= this.speed;
+                this.x += this.drift;
+                this.pulse += this.pulseSpeed;
+                if (this.y < -10) this.reset(false);
+            }
+            draw() {
+                const a = this.alpha * (0.7 + 0.3 * Math.sin(this.pulse));
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                ctx.fillStyle = this.color + a + ')';
+                ctx.fill();
+            }
+        }
+
+        // Dynamic flowing shapes (large soft orbs)
+        class Orb {
+            constructor() { this.reset(true); }
+            reset(initial) {
+                this.x = randomBetween(0, canvas.width);
+                this.y = initial ? randomBetween(0, canvas.height) : randomBetween(-200, canvas.height + 200);
+                this.r = randomBetween(80, 200);
+                this.vx = randomBetween(-0.12, 0.12);
+                this.vy = randomBetween(-0.12, 0.12);
+                this.alpha = randomBetween(0.03, 0.1);
+                this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
+                this.pulse = randomBetween(0, Math.PI * 2);
+                this.pulseSpeed = randomBetween(0.003, 0.008);
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.pulse += this.pulseSpeed;
+                if (this.x < -250 || this.x > canvas.width + 250 ||
+                    this.y < -250 || this.y > canvas.height + 250) {
+                    this.reset(false);
+                }
+            }
+            draw() {
+                const a = this.alpha * (0.8 + 0.2 * Math.sin(this.pulse));
+                const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r);
+                gradient.addColorStop(0, this.color + a + ')');
+                gradient.addColorStop(1, this.color + '0)');
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                ctx.fillStyle = gradient;
+                ctx.fill();
+            }
+        }
+
+        // Init particles and orbs
+        for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
+        const orbs = [];
+        for (let i = 0; i < 6; i++) orbs.push(new Orb());
+
+        // Connection lines between nearby particles
+        function drawConnections() {
+            const DIST = 110;
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < DIST) {
+                        const alpha = (1 - dist / DIST) * 0.06;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(91,184,255,${alpha})`;
+                        ctx.lineWidth = 0.8;
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw the large gradient background
+            const bg = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            bg.addColorStop(0, '#060d1a');
+            bg.addColorStop(1, '#0a1525');
+            ctx.fillStyle = bg;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Orbs
+            orbs.forEach(o => { o.update(); o.draw(); });
+
+            // Connections
+            drawConnections();
+
+            // Particles
+            particles.forEach(p => { p.update(); p.draw(); });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    })();
+    </script>
+
+    <script src="app.js" defer></script>
+
+    <!-- UI Enhancement script: waveform loaders + node data-attrs + card shimmer -->
+    <script>
+    (function () {
+        // Patch updateStatus to also drive waveform loaders and data-attrs on nodes
+        document.addEventListener('DOMContentLoaded', function () {
+            const _origUpdate = window.updateStatus;
+
+            // We'll override via a MutationObserver on status elements instead,
+            // so we don't modify app.js at all.
+            const stageMap = {
+                status1: { loader: 'loader1', card: 'card1', nodeStage: '1' },
+                status2: { loader: 'loader2', card: 'card2', nodeStage: '2' },
+                status3: { loader: 'loader3', card: 'card3', nodeStage: '3' },
+                status4: { loader: 'loader4', card: 'card4', nodeStage: '4' },
+            };
+
+            const startBtn = document.getElementById('startBtn');
+
+            function syncUI(statusId, state) {
+                const map = stageMap[statusId];
+                if (!map) return;
+
+                const loader = document.getElementById(map.loader);
+                const card   = document.getElementById(map.card);
+                const node   = document.querySelector(`.pipeline-node[data-stage="${map.nodeStage}"]`);
+
+                // Waveform loader visibility
+                if (loader) {
+                    loader.classList.toggle('active', state === 'processing');
+                }
+
+                // Card shimmer while loading
+                if (card) {
+                    card.classList.toggle('loading', state === 'processing');
+                    card.classList.toggle('stage-success', state === 'success');
+                }
+
+                // Node data-attributes for CSS-driven animation
+                if (node) {
+                    node.setAttribute('data-processing', state === 'processing' ? 'true' : 'false');
+                    node.setAttribute('data-success',    state === 'success'    ? 'true' : 'false');
+                    node.classList.toggle('processing-node', state === 'processing');
+                }
+            }
+
+            // Observe all status badges for className changes
+            Object.keys(stageMap).forEach(id => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                const observer = new MutationObserver(() => {
+                    const cls = el.className;
+                    const state = cls.includes('processing') ? 'processing'
+                                : cls.includes('success')    ? 'success'
+                                : cls.includes('error')      ? 'error'
+                                : 'idle';
+                    syncUI(id, state);
+                });
+                observer.observe(el, { attributes: true, attributeFilter: ['class'] });
+            });
+
+            // Add running class to button while pipeline runs
+            if (startBtn) {
+                startBtn.addEventListener('click', function () {
+                    startBtn.classList.add('running');
+                    const check = setInterval(() => {
+                        if (!startBtn.disabled) {
+                            startBtn.classList.remove('running');
+                            clearInterval(check);
+                        }
+                    }, 500);
+                });
+            }
+        });
+    })();
+    </script>
+
+</body>
+
+</html>

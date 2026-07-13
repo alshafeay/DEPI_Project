@@ -1,0 +1,5 @@
+﻿# Ignore all video files — videos are referenced in README.md only
+*.mp4
+*.mov
+*.avi
+*.mkv
